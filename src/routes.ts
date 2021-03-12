@@ -1,0 +1,80 @@
+import { ProductController } from "./controller/ProductController";
+import { PromoCodeController } from "./controller/PromoCodeController";
+import { PromotionController } from "./controller/PromotionController";
+
+export const Routes = [{
+    method: "get",
+    route: "/promotions",
+    controller: PromotionController,
+    action: "all"
+}, {
+    method: "get",
+    route: "/promotions/:id",
+    controller: PromotionController,
+    action: "one"
+}, {
+    method: "post",
+    route: "/promotions",
+    controller: PromotionController,
+    action: "save"
+}, {
+    method: "patch",
+    route: "/promotions",
+    controller: PromotionController,
+    action: "update"
+}, {
+    method: "delete",
+    route: "/promotions/:id",
+    controller: PromotionController,
+    action: "remove"
+}, {
+    method: "get",
+    route: "/products",
+    controller: ProductController,
+    action: "all"
+}, {
+    method: "get",
+    route: "/products/:id",
+    controller: ProductController,
+    action: "one"
+}, {
+    method: "post",
+    route: "/products",
+    controller: ProductController,
+    action: "save"
+}, {
+    method: "delete",
+    route: "/products/:id",
+    controller: ProductController,
+    action: "remove"
+}, {
+    method: "post",
+    route: "/promotions",
+    controller: PromotionController,
+    action: "save"
+}, {
+    method: "delete",
+    route: "/promotions/:id",
+    controller: PromotionController,
+    action: "remove"
+}, {
+    method: "get",
+    route: "/promo-codes",
+    controller: PromoCodeController,
+    action: "all"
+}, {
+    method: "get",
+    route: "/promo-codes/:id",
+    controller: PromoCodeController,
+    action: "one"
+}, {
+    method: "post",
+    route: "/promo-codes",
+    controller: PromoCodeController,
+    action: "save"
+}, {
+    method: "delete",
+    route: "/promo-codes/:id",
+    controller: PromoCodeController,
+    action: "remove"
+}];
