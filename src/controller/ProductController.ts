@@ -1,4 +1,4 @@
-import { getRepository } from "typeorm";
+import { getRepository, In } from "typeorm";
 import { NextFunction, Request, Response } from "express";
 import { Product } from "../entity/Product";
 
@@ -6,7 +6,9 @@ export class ProductController {
     private productRepository = getRepository(Product);
 
     async all(request: Request, response: Response, next: NextFunction) {
-        return this.productRepository.find();
+        const filter = JSON.parse(request.query.filter);
+        const whereClause = filter.id ? { id: In(filter.id) } : null;
+        return this.productRepository.findAndCount(whereClause ? { where: whereClause } : {});
     }
 
     async one(request: Request, response: Response, next: NextFunction) {

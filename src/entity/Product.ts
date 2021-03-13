@@ -15,12 +15,4 @@ export class Product {
 
     @Column()
     value: number;
-
-    @ManyToMany(() => PromoCode, promoCode => promoCode.products)
-    @JoinTable()
-    promoCodes: PromoCode[];
-
-    @ManyToMany(() => Discount, discount => discount.products)
-    @JoinTable()
-    discounts: Discount[];
 }

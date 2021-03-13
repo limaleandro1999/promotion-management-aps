@@ -8,7 +8,7 @@ export class PromotionController {
     private discountRepository = getRepository(Discount);
 
     async all(request: Request, response: Response, next: NextFunction) {
-        return this.promotionRepository.find();
+        return this.promotionRepository.findAndCount();
     }
 
     async one(request: Request, response: Response, next: NextFunction) {
@@ -16,8 +16,12 @@ export class PromotionController {
     }
 
     async save(request: Request, response: Response, next: NextFunction) {
-        const discount = await this.discountRepository.save(request.body.discount);
-        const promotion = await this.promotionRepository.save({ ...request.body, discount });
+        const promotion = await this.promotionRepository.save({ ...request.body });
+        
+        if (request.body.discounts) {
+            await this.discountRepository.save(request.body.discounts);
+        }
+
         return promotion;
     }
 
@@ -26,7 +30,8 @@ export class PromotionController {
     }
 
     async remove(request: Request, response: Response, next: NextFunction) {
-        let promotionToRemove = await this.promotionRepository.findOne(request.params.id);
-        await this.promotionRepository.remove(promotionToRemove);
+        const promotionToRemove = await this.promotionRepository.findOne(request.params.id);
+        await this.discountRepository.remove(promotionToRemove.discounts);
+        return await this.promotionRepository.remove(promotionToRemove);
     }
 }

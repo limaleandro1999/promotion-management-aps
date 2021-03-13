@@ -27,10 +27,10 @@ export class Promotion {
     @Column()
     type: PromotionType;
 
-    @ManyToMany(() => PromoCode, promoCode => promoCode.promotions)
+    @ManyToMany(() => PromoCode, { cascade: ['insert', 'remove'] })
     @JoinTable()
     promoCodes: PromoCode[];
 
-    @OneToMany(() => Discount, discount => discount.promotion)
+    @OneToMany(() => Discount, discount => discount.promotion, { cascade: ['insert', 'remove'], eager: true })
     discounts: Discount[];
 }

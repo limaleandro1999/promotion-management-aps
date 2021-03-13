@@ -24,11 +24,7 @@ export class PromoCode {
     @Column()
     type: DiscountType;
 
-    @ManyToMany(() => Product, product => product.promoCodes)
+    @ManyToMany(() => Product, { cascade: true })
     @JoinTable()
     products: Product[];
-
-    @ManyToMany(() => Promotion, promotion => promotion.promoCodes)
-    @JoinTable()
-    promotions: Promotion[];
 }

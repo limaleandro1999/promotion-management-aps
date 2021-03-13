@@ -18,7 +18,7 @@ export class Discount {
     @Column()
     type: DiscountType;
 
-    @ManyToMany(() => Product, product => product.discounts)
+    @ManyToMany(() => Product, { cascade: true })
     @JoinTable()
     products: Product[];
 

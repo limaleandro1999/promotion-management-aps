@@ -1,4 +1,4 @@
-import { getRepository } from "typeorm";
+import { getRepository, In } from "typeorm";
 import { NextFunction, Request, Response } from "express";
 import { PromoCode } from "../entity/PromoCode";
 
@@ -6,7 +6,9 @@ export class PromoCodeController {
     private promoCodeRepository = getRepository(PromoCode);
 
     async all(request: Request, response: Response, next: NextFunction) {
-        return this.promoCodeRepository.find();
+        const filter = JSON.parse(request.query.filter);
+        const whereClause = filter.id ? { id: In(filter.id) } : null;
+        return this.promoCodeRepository.findAndCount(whereClause ? { where: whereClause } : {});
     }
 
     async one(request: Request, response: Response, next: NextFunction) {
